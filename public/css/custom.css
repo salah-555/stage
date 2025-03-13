@@ -1,0 +1,150 @@
+/* Hero Section */
+.hero-section {
+    background: url('/images/sport-banner.jpg') no-repeat center center/cover;
+    padding: 100px 0;
+}
+
+/* Catégories */
+.category-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+/* Produits */
+.product-card {
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Promotion */
+.promotion-banner {
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* Témoignages */
+.testimonial {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}/* Hero Section */
+.hero-section {
+    background-image: url('/images/sport-banner.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 100px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Catégories */
+.category-card {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Produits */
+.product-card {
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: box-shadow 0.3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+/* Promotion */
+.promotion-banner {
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+}
+
+/* Témoignages */
+.testimonial {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-style: italic;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-section h1, 
+.hero-section p, 
+.hero-section a {
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.hero-section h1, 
+.hero-section p, 
+.hero-section a {
+    animation: fadeInUp 1s ease-in-out;
+}
