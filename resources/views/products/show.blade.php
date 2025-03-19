@@ -25,7 +25,17 @@
             <p class="stock {{ $product->stock > 0 ? 'in-stock' : 'out-of-stock' }}">
                 {{ $product->stock > 0 ? 'En Stock' : 'Rupture de Stock' }}
             </p>
-            <a href="#" class="btn">Ajouter au panier</a>
+            {{-- Formulaire pour ajouter au panier --}}
+            <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantité :</label>
+                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="{{ $product->stock }}">
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                </button>
+            </form>
             <a href="{{ route('products.index') }}" class="btn back-btn">Retour</a>
         </div>
     </div>

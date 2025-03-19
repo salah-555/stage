@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Admin;
+use App\Models\User;
+// use App\Models\Admin;
 use App\Models\Client;
 
 return [
@@ -17,8 +18,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'clients',
+        'passwords' => 'clients',
     ],
 
     /*
@@ -38,22 +39,21 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'clients',
-        ],
-
-        'clients' => [ // Ajoutez ce garde
-            'driver' => 'session',
-            'provider' => 'clients', // Assurez-vous que ce provider existe
+  'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'clients',
     ],
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
+    'clients' => [ // Ajout du guard "clients"
+        'driver' => 'session',
+        'provider' => 'clients',
     ],
 
+    // 'admins' => [ // Ajoute ce guard
+    //     'driver' => 'session',
+    //     'provider' => 'admins',  // Assure-toi que ce provider est défini
+    // ],
+],
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -70,27 +70,23 @@ return [
     | Supported: "database", "eloquent"
     |
     */
+'providers' => [
+    // 'users' => [
+    //     'driver' => 'eloquent',
+    //     'model' => User::class, // ✅ Correction ici
+    // ],
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'clients' => [
-            'driver' => 'eloquent',
-            'model' => Client::class,
-        ],
-        'admins' => [
-            'dirver' => 'eloquent',
-            'model' => Admin::class,
-        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    'clients' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Client::class, // Vérifie bien que ce modèle existe
     ],
 
+    // 'admins' => [  // Ajoute ce provider
+    //     'driver' => 'eloquent',
+    //     'model' => App\Models\Admin::class,  // Assure-toi que ce modèle existe
+    // ],
+],
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords
@@ -107,12 +103,19 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'clients' => [
+            'provider' => 'clients',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        // 'admins' => [
+        //     'provider' => 'admins',
+        //     'table' => 'password_resets',
+        //     'expire' => 60,
+        //     'throttle' => 60,
+        //  ],
     ],
 
     /*

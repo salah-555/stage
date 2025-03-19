@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthClientController extends Controller
@@ -48,31 +49,31 @@ class AuthClientController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $client = Client::where('email', $request->email)->first();
+        // Récupérer les credentials
+        $credentials = $request->only('email', 'password');
 
-        if($client && Hash::check($request->password, $client->password)) {
-            session(['client'=> $client]);
+        // Tenter l'authentification
+        if (Auth::guard('clients')->attempt($credentials)) {
+            // Regénérer la session après connexion
+            $request->session()->regenerate();
 
-            return redirect()->route('accueil');
+            //Verifecation apres connexion 
+            // dd(Auth::guard('clients')->user());
+            
+          
+
+           return redirect()->route('accueil');
         }
 
         return back()->withErrors(['email' => 'Identifiants incorrects']);
-    
     }
+
 
     // Deconnexion
     public function logout(Request $request)
     {
-        // supprimer la sessoin du client
-        $request->session()->forget('client');
-        
-        // INvalider la session  laravel 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        // Redirect vers la page d'accueil apres a Deconnexion
-
-        return redirect()->route('accueil')->with('success', 'Deconnexion resussie.');
+        auth()->guard('clients')->logout();
+        return redirect()->route('client.login');
     }
 
     // Tableau de bord

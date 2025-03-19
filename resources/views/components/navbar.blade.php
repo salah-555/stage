@@ -14,23 +14,22 @@
         }
         body {
             background-color: #f8f9fa;
-            
         }
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.95); /* Fond légèrement transparent */
+            background: rgba(255, 255, 255, 0.95);
             padding: 15px 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombre douce */
-            position: fixed; /* Fixe la navbar en haut */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100px;
+            height: 80px;
             z-index: 1000;
             transition: all 0.3s ease-in-out;
-}
+        }
         .navbar .logo a {
             font-size: 1.8rem;
             font-weight: 700;
@@ -155,17 +154,18 @@
             @endif
         </ul>
         <div class="nav-actions">
-            @if(session('client'))
-                <span>👤 {{ session('client')->email }}</span>
-                <form action="{{route('logout')}}" method="POST" style="display:inline;">
+            @auth
+                <span>👤 {{ auth()->user()->email }}</span>
+                <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                     @csrf
                     <button class="btn btn-primary" type="submit">Déconnexion</button>
                 </form>
             @else
-                <a href="{{route('client.login')}}">Connexion</a>
-                <a href="{{route('client.register')}}">Inscription</a>
-            @endif
+                <a href="{{ route('client.login') }}">Connexion</a>
+                <a href="{{ route('client.register') }}">Inscription</a>
+            @endauth
         </div>
+
         <div class="menu-toggle">
             <i class="fas fa-bars"></i>
         </div>

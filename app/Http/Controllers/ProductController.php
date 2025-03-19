@@ -5,10 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     
+
+    public function __construct()
+    {
+        // dd(auth()->user());
+        
+        // dd(Auth::check(), Auth::guard()->user(), Auth::guard('clients')->user(), session()->all());
+        $this->middleware(function ($request, $next) {
+            
+            if (!auth()->check() || auth()->user()->role !=='admin'){
+                abort(403, 'Accès interdit');
+            }
+            return $next($request);
+        })->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
+
+
    //affichier la liste des produit 
    public function index()
    {
@@ -24,6 +41,7 @@ class ProductController extends Controller
    // Afficher le formulaire pour ajouter un produit (Create - C)
    public function create()
    {
+   
        $categories = Category::all();  // Récupérer toutes les catégories
        return view('products.create', compact('categories'));
    }
