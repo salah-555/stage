@@ -7,6 +7,20 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        
+        $this->middleware(function ($request, $next) {
+            
+            if (!auth()->check() || auth()->user()->role !=='admin'){
+                abort(403, 'Accès interdit');
+            }
+            return $next($request);
+        })->only(['create','store']);
+    }
+
+
     public function create()
     {
         return view('categories.create');

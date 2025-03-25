@@ -12,11 +12,19 @@ class OrderController extends Controller
    
     public function index()
     {
-        // dd(auth()->guard('clients')->user());// dd(auth()->guard('clients')->check());
+        // // dd(auth()->guard('clients')->user());// dd(auth()->guard('clients')->check());
         $user = auth()->guard('clients')->user();
 
         if (!$user) {
             return redirect()->route('client.login')->with('error', 'Vous devez être connecté pour voir vos commandes.');
+        }
+
+        if (auth()->guard('admin')->check()) {
+            // l'admin voit toutes les commandes 
+            $orders = Order::with('client', 'products')->latest()->get();
+        } else {
+            // Un client voit uniquement ses propres commandes 
+            $orders = Order::where('client_id',  auth('clients')->id())->with('products')->get();
         }
 
         $orders = $user->orders()->latest()->get();
@@ -59,17 +67,32 @@ class OrderController extends Controller
     // une fonction cancel pour gerer l'annulation d'une commande
     public function cancel(Order $order)
     {
-        if (auth()->id() !== $order->user_id) {
+        if (auth('clients')->id() !== $order->client_id) {
             return redirect()->back()->with('error', 'Vous ne pouvez annuler que vos propres commandes .');
         }
 
-        if ($order->status !=='en attente') {
-            return redirect()->back()->with('error', 'Seules les commandes en attente peuvent être annulées');
-        }
+        //Supprimer la commande 
+        $order->delete();
 
-        $order->update(['status'=> 'annulée']);
+        // if ($order->status !=='en attente') {
+        //     return redirect()->back()->with('error', 'Seules les commandes en attente peuvent être annulées');
+        // }
+
+        // $order->update(['status'=> 'annulée']);
 
         return redirect()->back()->with('success', 'Votre commande a ete annulee avec success');
+    }
+
+    public function updateStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status' => 'required|in:en attente,en cours,livrée,annulée'
+        ]);
+    
+        $order->status = $request->status;
+        $order->save();
+    
+        return redirect()->back()->with('success', 'Statut de la commande mis à jour.');
     }
     
 

@@ -13,9 +13,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        // dd(auth()->user());
         
-        // dd(Auth::check(), Auth::guard()->user(), Auth::guard('clients')->user(), session()->all());
         $this->middleware(function ($request, $next) {
             
             if (!auth()->check() || auth()->user()->role !=='admin'){
@@ -41,7 +39,8 @@ class ProductController extends Controller
    // Afficher le formulaire pour ajouter un produit (Create - C)
    public function create()
    {
-   
+
+       
        $categories = Category::all();  // Récupérer toutes les catégories
        return view('products.create', compact('categories'));
    }

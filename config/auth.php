@@ -48,6 +48,10 @@ return [
         'driver' => 'session',
         'provider' => 'clients',
     ],
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'clients', //Utiliser le meme fournisseur que pour les cliens 
+    ],
 
     // 'admins' => [ // Ajoute ce guard
     //     'driver' => 'session',
@@ -110,12 +114,12 @@ return [
             'throttle' => 60,
         ],
 
-        // 'admins' => [
-        //     'provider' => 'admins',
-        //     'table' => 'password_resets',
-        //     'expire' => 60,
-        //     'throttle' => 60,
-        //  ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+         ],
     ],
 
     /*

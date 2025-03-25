@@ -64,16 +64,23 @@ Route::get('/', [HomeController::class, 'index'])->name('accueil');
 //     Route::resource('products', ProductController::class)->except(['index', 'show']);
     
 // });
+//////////////////////
 
-Route::resource('products', ProductController::class)->only(['index', 'show']);
+// Routes accessibles à tout le monde
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+
+
 Route::middleware(['auth'])->group(function () {
-    Route::resource('products', ProductController::class)->except(['index', 'show']);
-
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::resource('products', ProductController::class)->except(['index', 'show']);
-// });
+
 
 
 
@@ -123,6 +130,12 @@ Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 
 Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 
+Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+route::get('/admin/orders', function () {
+    return redirect()->route('orders.index')->with("success", 'Commande mises a jour .');
+});
+
 
 // Cette route pour tester la connexion 
 
@@ -131,6 +144,8 @@ Route::get('/test-auth', function() {
         'user' => auth()->user(),
     ]);
 });
+
+
 
 // Route::middleware(['auth:clients'])->group(function () {
 //      Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

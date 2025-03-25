@@ -36,7 +36,8 @@
         @foreach($products as $product)
             <div class="col-md-3">
                 <div class="product-card">
-                    <img src="{{ asset('storage/' . $product->image) }}" class="img-fluid">
+                    {{-- <img src="{{ asset('storage/' . $product->image) }}" class="img-fluid"> --}}
+                    <img src="{{ asset($product->image) }}" class="img-fluid">
                     <h5>{{ $product->name }}</h5>
                     <p class="price">{{ $product->price }} DH</p>
                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary">Voir Détails</a>

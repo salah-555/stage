@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('products.create') }}" class="btn btn-secondary">Retour</a>
+                    <a href="{{ route('products.index') }}" class="btn btn-secondary">Retour</a>
                     <button type="submit" class="btn btn-success">Ajouter la Catégorie</button>
                 </div>
             </form>

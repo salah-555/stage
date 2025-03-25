@@ -23,7 +23,9 @@
                 <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('images/default.png') }}" 
                     class="card-img-top" 
                     alt="Image du produit" 
-                    style="height: 200px; object-fit: cover;">
+                    style="height: 200px; object-fit: cover;"> 
+                    
+            
 
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->name }}</h5>

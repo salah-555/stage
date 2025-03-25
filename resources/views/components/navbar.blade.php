@@ -136,7 +136,7 @@
         <ul class="nav-links">
             <li><a href="/">Accueil</a></li>
             <li><a href="/products">Produits</a></li>
-            <li><a href="#">Catégories</a></li>
+            {{-- <li><a href="#">Catégories</a></li> --}}
             <li><a href="/contact">Contact</a></li>
 
             <li class="nav-item">
